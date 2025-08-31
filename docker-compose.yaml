@@ -4,8 +4,6 @@ services:
     container_name: evolution_api
     image: evoapicloud/evolution-api:latest
     restart: always
-    ports:
-      - 8081:8080
     volumes:
       - evolution_instances:/evolution/instances
     networks:
