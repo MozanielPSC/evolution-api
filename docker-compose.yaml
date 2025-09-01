@@ -10,8 +10,8 @@ services:
     env_file:
       - .env
     # A LINHA "expose" FOI TROCADA PELA LINHA "ports" ABAIXO
-     expose:
-      - 8080
+    ports:
+      - "8081:8080" # Mapeia a porta 8081 do servidor para a 8080 do container
 
 volumes:
   evolution_instances:
