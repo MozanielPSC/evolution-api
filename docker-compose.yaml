@@ -1,7 +1,7 @@
 services:
   api:
-    container_name: evolution_api
     image: evoapicloud/evolution-api:latest
+    container_name: evolution_api
     restart: always
     volumes:
       - evolution_instances:/evolution/instances
@@ -9,14 +9,11 @@ services:
       - evolution-net
     env_file:
       - .env
-    # A LINHA "expose" FOI TROCADA PELA LINHA "ports" ABAIXO
-    ports:
-      - "8081:8080" # Mapeia a porta 8081 do servidor para a 8080 do container
-
-volumes:
-  evolution_instances:
-
-networks:
-  evolution-net:
-    name: evolution-net
-    driver: bridge
+    expose:
+      - "8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.evo.rule=Host(`evolution.beetzap.com`)"
+      - "traefik.http.routers.evo.entrypoints=websecure"
+      - "traefik.http.routers.evo.tls.certresolver=letsencrypt"
+      - "traefik.http.services.evo.loadbalancer.server.port=8080"
